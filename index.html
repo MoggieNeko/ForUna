@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Trip App</title>
+  <!-- Link to external CSS file -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Leaflet CSS for maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+</head>
+<body>
+  <!-- Header 區塊：App 名稱與標語 -->
+  <header>
+    <div class="logo">Real Trip</div>
+    <p class="tagline">Restoring Authenticity to Travel</p>
+  </header>
+  
+  <!-- 導覽列 -->
+  <div class="nav-container">
+    <button class="hamburger-menu" id="hamburger-menu" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav>
+      <ul>
+        <li><a href="#map">Home</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#recommendations">Recommendations</a></li>
+        <li><a href="#profile">Profile</a></li>
+      </ul>
+    </nav>
+  </div>
+  
+  <!-- 主內容區域 -->
+  <main>
+    <!-- 地圖展示區 -->
+    <section id="map-section">
+      <h2>Hong Kong Interactive Map</h2>
+      <!-- 實際地圖容器 -->
+      <div id="map"></div>
+      <!-- 搜尋及篩選區塊 -->
+      <div class="search-filter">
+        <input type="text" id="searchInput" placeholder="Search for a location in Hong Kong..." />
+        <select id="filterSelect">
+          <option value="all">All</option>
+          <option value="verified">Verified</option>
+          <option value="top-rated">Top Rated</option>
+          <option value="restaurants">Restaurants</option>
+          <option value="attractions">Attractions</option>
+          <option value="shopping">Shopping</option>
+        </select>
+        <button id="searchBtn">Search</button>
+      </div>
+    </section>
+    
+    <!-- 評論發佈區 -->
+    <section id="reviews">
+      <h2>Post a Review</h2>
+      <form id="reviewForm">
+        <label for="locationName">Location Name:</label>
+        <input type="text" id="locationName" placeholder="Enter location name..." required />
+        <label for="reviewText">Your Review:</label>
+        <textarea id="reviewText" rows="4" placeholder="Enter your review here..." required></textarea>
+        <label for="ratingSelect">Rating:</label>
+        <select id="ratingSelect" required>
+          <option value="">Select a rating</option>
+          <option value="5">5 - Excellent</option>
+          <option value="4">4 - Very Good</option>
+          <option value="3">3 - Good</option>
+          <option value="2">2 - Fair</option>
+          <option value="1">1 - Poor</option>
+        </select>
+        <label for="proofUpload">Upload Proof (Receipt/Ticket):</label>
+        <input type="file" id="proofUpload" accept="image/*" required />
+        <button type="submit">Submit Review</button>
+      </form>
+    </section>
+    
+    <!-- 最新評論區 -->
+    <section id="recent-reviews">
+      <h2>Recent Reviews</h2>
+      <div id="reviews-container">
+        <!-- Reviews will be dynamically added here -->
+      </div>
+    </section>
+    
+    <!-- AI 個人化推薦區 -->
+    <section id="recommendations">
+      <h2>AI Recommendations in Hong Kong</h2>
+      <div class="tag-selection-container">
+        <h3>Select interests to get personalized recommendations</h3>
+        <div class="interest-tags">
+          <span class="interest-tag" data-tag="hiking">Hiking</span>
+          <span class="interest-tag" data-tag="food">Local Food</span>
+          <span class="interest-tag" data-tag="culture">Culture</span>
+          <span class="interest-tag" data-tag="nightlife">Nightlife</span>
+          <span class="interest-tag" data-tag="shopping">Shopping</span>
+          <span class="interest-tag" data-tag="beaches">Beaches</span>
+          <span class="interest-tag" data-tag="history">History</span>
+          <span class="interest-tag" data-tag="architecture">Architecture</span>
+          <span class="interest-tag" data-tag="nature">Nature</span>
+          <span class="interest-tag" data-tag="photography">Photography</span>
+          <span class="interest-tag" data-tag="parks">Parks</span>
+          <span class="interest-tag" data-tag="markets">Markets</span>
+          <span class="interest-tag" data-tag="museums">Museums</span>
+          <span class="interest-tag" data-tag="festivals">Festivals</span>
+          <span class="interest-tag" data-tag="family">Family-friendly</span>
+          <span class="interest-tag" data-tag="adventure">Adventure</span>
+          <span class="interest-tag" data-tag="views">Scenic Views</span>
+          <span class="interest-tag" data-tag="cafes">Cafés</span>
+        </div>
+        <div class="selected-tags-container">
+          <p>Your selected interests: <span id="selected-tags-display">None selected</span></p>
+        </div>
+        <button id="generate-itinerary-btn">Generate My Itinerary</button>
+      </div>
+      <div class="recommendation-cards">
+        <!-- Recommendations will be dynamically generated here after selection -->
+      </div>
+    </section>
+    
+    <!-- 用戶主頁區塊 -->
+    <section id="profile">
+      <h2>User Profile</h2>
+      <div class="profile-container">
+        <div class="profile-info">
+          <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar" />
+          <h3>User Name</h3>
+          <p>Member since: January 2025</p>
+          <p>Reviews: 15</p>
+          <p>Verified Reviews: 12</p>
+        </div>
+        <div class="user-content">
+          <div class="user-reviews">
+            <h3>Your Reviews</h3>
+            <div id="user-reviews-container">
+              <!-- User's reviews will be dynamically added here -->
+            </div>
+          </div>
+          <div class="saved-places">
+            <h3>Saved Places</h3>
+            <div id="saved-places-container">
+              <!-- Saved places will be dynamically added here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer 區塊 -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>About Real Trip</h3>
+        <p>Our mission is to restore authenticity to travel experiences.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#map">Home</a></li>
+          <li><a href="#reviews">Post Review</a></li>
+          <li><a href="#recent-reviews">Recent Reviews</a></li>
+          <li><a href="#recommendations">Recommendations</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: info@realtrip.com</p>
+        <p>Phone: +852 1234 5678</p>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2025 Real Trip. All Rights Reserved.</p>
+  </footer>
+  
+  <!-- Leaflet JS for maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+     
+  <!-- Link to external JS file -->
+  <script src="script.js"></script>
+  <!-- Add floating action button for mobile -->
+  <button class="mobile-fab" id="add-review-fab" aria-label="Add review">+</button>
+</body>
+</html> 
